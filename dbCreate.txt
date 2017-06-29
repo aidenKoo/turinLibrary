@@ -1,0 +1,73 @@
+CREATE DATABASE `dbturinlibrary` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+CREATE TABLE `tbladmin` (
+  `adminID` varchar(45) NOT NULL,
+  `adminPassword` varchar(45) NOT NULL,
+  PRIMARY KEY (`adminID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `dbturinlibrary`.`tbladmin` (`adminID`, `adminPassword`) VALUES ('admin', '1234');
+
+
+CREATE TABLE `tblbook` (
+  `bookPrimaryKey` varchar(45) NOT NULL,
+  `bookCode` varchar(45) DEFAULT NULL,
+  `bookTitle` varchar(45) DEFAULT NULL,
+  `publicationYear` varchar(4) DEFAULT NULL,
+  `publisher` varchar(45) DEFAULT NULL,
+  `thumbnail` varchar(150) DEFAULT NULL,
+  `summary` varchar(100) DEFAULT NULL,
+  `content` text,
+  `sectionCode` varchar(45) DEFAULT NULL,
+  `fileDirectory` varchar(45) DEFAULT NULL,
+  `author` varchar(100) DEFAULT '',
+  PRIMARY KEY (`bookPrimaryKey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tblbookmark` (
+  `memberID` varchar(45) NOT NULL,
+  `bookCode` varchar(45) NOT NULL,
+  PRIMARY KEY (`memberID`,`bookCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tblcategory` (
+  `category` varchar(25) NOT NULL,
+  `sectionCode` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`sectionCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tbldownloadlog` (
+  `memberID` varchar(45) DEFAULT NULL,
+  `bookCode` varchar(45) DEFAULT NULL,
+  `date` date DEFAULT NULL
+  PRIMARY KEY (`memberID`,`bookCode`,`date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tblnoticeboards` (
+  `NUM` int(11) NOT NULL AUTO_INCREMENT,
+  `SUBJECT` varchar(250) NOT NULL,
+  `WRITER` varchar(50) DEFAULT NULL,
+  `CONTENTS` text,
+  `REG_DATE` datetime NOT NULL COMMENT,
+  `MOD_DATE` datetime DEFAULT NULL,
+  PRIMARY KEY (`NUM`),
+  UNIQUE KEY `NUM` (`NUM`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tblrating` (
+  `memberID` varchar(45) NOT NULL,
+  `bookCode` varchar(45) NOT NULL DEFAULT '',
+  `rating` int(11) DEFAULT NULL,
+  PRIMARY KEY (`memberID`,`bookCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tblreview` (
+  `memberID` varchar(45) DEFAULT NULL,
+  `bookCode` varchar(45) NOT NULL DEFAULT '',
+  `content` text,
+  `date` date DEFAULT NULL,
+  `num` int(11) NOT NULL DEFAULT '0',
+  `title` varchar(45) DEFAULT NULL,
+  `views` int(11) DEFAULT NULL,
+  PRIMARY KEY (`bookCode`,`num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
